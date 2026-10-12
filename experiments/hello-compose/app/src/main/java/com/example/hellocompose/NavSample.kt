@@ -9,12 +9,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.model.StateScreenModel
 import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import kotlinx.coroutines.flow.update
@@ -34,7 +36,7 @@ class CounterScreenModel : StateScreenModel<CounterScreenModel.State>(State()) {
 class HomeScreen : Screen {
     @Composable
     override fun Content() {
-        val navigator = Navigator.currentOrThrow
+        val navigator = LocalNavigator.currentOrThrow
         Column(
             modifier = Modifier.fillMaxSize().padding(24.dp),
             verticalArrangement = Arrangement.Center,
@@ -51,7 +53,7 @@ class HomeScreen : Screen {
 class CounterScreen : Screen {
     @Composable
     override fun Content() {
-        val navigator = Navigator.currentOrThrow
+        val navigator = LocalNavigator.currentOrThrow
         val screenModel = rememberScreenModel { CounterScreenModel() }
         val state by screenModel.state.collectAsState()
 

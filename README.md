@@ -84,7 +84,7 @@ Requirements to build the upstream app: JDK 21, Android SDK with API 36, and And
 
 - `notes/index.md`: index of topic notes (build setup, Compose theme, Voyager navigation, screen models, WorkManager, Injekt, testing, glossary).
 - `scripts/check-notes.sh`: verifies that paths cited in notes still exist at the commit each note was written against.
-- `experiments/hello-compose/`: a small Compose and Material 3 app with a Voyager two-screen sample, using the same versions as Komikku. Includes the Gradle wrapper (9.3.1). Open it in Android Studio, or run `./gradlew assembleDebug` once the Android SDK (API 36) is installed. It has not been built yet.
+- `experiments/hello-compose/`: a small Compose and Material 3 app with a Voyager two-screen sample, using the same versions as Komikku. Includes the Gradle wrapper (9.3.1). Build with `./gradlew assembleDebug`. Requires the Android SDK (API 36); create `local.properties` with `sdk.dir=...` (not committed). Verified: `assembleDebug` succeeds on Termux with the SDK at `~/android-sdk` (APK: compileSdk 36, minSdk 26, targetSdk 36).
 
 ## Git helpers
 
