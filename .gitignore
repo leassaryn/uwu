@@ -1,0 +1,26 @@
+# Android / Gradle build output
+build/
+.gradle/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# Local SDK and machine-specific config
+local.properties
+*.iml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Keystores and secrets
+*.jks
+*.keystore
+keystore.properties
+.env
+
+# OS
+.DS_Store
