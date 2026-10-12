@@ -1,6 +1,6 @@
 # uwu
 
-A personal study repository for learning Android development by following two upstream Komikku projects: an open source manga reader built with Kotlin, Jetpack Compose, and Material 3.
+A personal study repository for learning Android development by following three upstream projects: Komikku, its fork by xkana-shii, and Mihon. All are open source manga readers built with Kotlin, Jetpack Compose, and Material 3.
 
 The goal of this repo is to learn by reading, tracing, and experimenting with real-world code. It is not intended as a production app.
 
@@ -19,8 +19,19 @@ The goal of this repo is to learn by reading, tracing, and experimenting with re
 |------|-----|-------------|
 | `upstream` | https://github.com/komikku-app/komikku | Main Komikku repository (Apache-2.0, branch `master`) |
 | `upstream-xkana` | https://github.com/xkana-shii/komikku | Personal Komikku fork by xkana-shii (branch `main`). Warned to break often. |
+| `upstream-mihon` | https://github.com/mihonapp/mihon | Mihon, the Tachiyomi successor (branch `main`). Separate history from Komikku. |
 
 The `origin` remote for this repo is https://github.com/leassaryn/uwu.
+
+### Mirrored branches on origin
+
+Snapshots of each upstream tip are pushed to `origin` for reference. They do not share history with `master`.
+
+| Branch | Snapshot of |
+|--------|-------------|
+| `upstream-komikku` | `upstream/master` |
+| `upstream-xkana` | `upstream-xkana/main` |
+| `upstream-mihon` | `upstream-mihon/main` |
 
 ## Setup
 
@@ -29,6 +40,7 @@ Clone the upstream repos for reference:
 ```sh
 git fetch upstream
 git fetch upstream-xkana
+git fetch upstream-mihon
 git worktree add ../komikku-ref upstream/master
 ```
 
