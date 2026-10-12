@@ -19,3 +19,5 @@ Komikku has about 11 `CoroutineWorker` classes. Mihon has about 7.
 
 1. Read `LibraryUpdateJob.doWork()` and list the exit paths.
 2. Find where the job is enqueued and what constraints it uses.
+
+<!-- source: upstream/master@1656575e8f -->

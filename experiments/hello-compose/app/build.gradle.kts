@@ -40,4 +40,8 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
+
+    // Same Voyager artifacts as Komikku (gradle/libs.versions.toml, voyager = 1.1.0-beta03)
+    implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta03")
+    implementation("cafe.adriel.voyager:voyager-screenmodel:1.1.0-beta03")
 }

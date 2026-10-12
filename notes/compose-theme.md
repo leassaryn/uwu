@@ -22,3 +22,5 @@
 ## Mihon
 
 Mihon has its theme in `presentation-core` and the app module. Diff the two to see how theming moved between modules.
+
+<!-- source: upstream/master@1656575e8f -->

@@ -28,7 +28,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    Counter()
+                    // Switch to Counter() to see plain remember state only.
+                    VoyagerRoot()
                 }
             }
         }

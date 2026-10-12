@@ -67,6 +67,7 @@ Mirrored snapshots on `origin` (read-only reference, no shared history with `mas
 |--------|---------|
 | `scripts/fetch-all.sh` | Fetch all four remotes and print branch tips. Exits non-zero if any fetch fails. |
 | `scripts/worktree-ref.sh <name> <remote/branch>` | Create a detached read-only worktree at `../<name>-ref`, e.g. `scripts/worktree-ref.sh komikku upstream/master` |
+| `scripts/check-notes.sh` | Check that paths cited in `notes/*.md` exist at their source commit |
 
 ## Setup
 
@@ -81,8 +82,9 @@ Requirements to build the upstream app: JDK 21, Android SDK with API 36, and And
 
 ## Study notes
 
-- `notes/index.md`: index of topic notes (build setup, Compose theme, Voyager navigation, screen models, WorkManager, Injekt).
-- `experiments/hello-compose/`: a small Compose and Material 3 app, using the same versions as Komikku. Open it in Android Studio, or run `./gradlew assembleDebug` once the Android SDK (API 36) is installed. It has not been built yet.
+- `notes/index.md`: index of topic notes (build setup, Compose theme, Voyager navigation, screen models, WorkManager, Injekt, testing, glossary).
+- `scripts/check-notes.sh`: verifies that paths cited in notes still exist at the commit each note was written against.
+- `experiments/hello-compose/`: a small Compose and Material 3 app with a Voyager two-screen sample, using the same versions as Komikku. Includes the Gradle wrapper (9.3.1). Open it in Android Studio, or run `./gradlew assembleDebug` once the Android SDK (API 36) is installed. It has not been built yet.
 
 ## Git helpers
 
@@ -90,4 +92,4 @@ Requirements to build the upstream app: JDK 21, Android SDK with API 36, and And
 
 ## License
 
-This repository follows the license of the upstream projects: [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+The `LICENSE` files in `upstream/master`, `upstream-xkana/main`, and `upstream-mihon/main` are all the same Apache License 2.0 text (identical hash). No NOTICE file exists in any of them. This repo's own notes and scripts are not separately licensed; the Apache-2.0 text applies to the upstream code copied or referenced here.

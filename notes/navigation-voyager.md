@@ -19,3 +19,5 @@ Komikku and Mihon use Voyager (`cafe.adriel.voyager`), not `androidx.navigation.
 1. Follow `HomeScreen` from `MainActivity` to its `Content()`.
 2. Find one screen that calls `navigator.push`. Note which screen it pushes.
 3. Check how `disposeSteps = true` affects memory.
+
+<!-- source: upstream/master@1656575e8f -->

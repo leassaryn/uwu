@@ -1,0 +1,14 @@
+# Normalize text files to LF so shell scripts and Gradle files work on any OS
+* text=auto eol=lf
+
+# Scripts must stay LF
+*.sh text eol=lf
+gradlew text eol=lf
+
+# Binary files
+*.jar binary
+*.png binary
+*.jpg binary
+*.webp binary
+*.jks binary
+*.keystore binary

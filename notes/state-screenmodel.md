@@ -19,3 +19,5 @@ Komikku's ViewModel equivalent is `StateScreenModel` from Voyager (`cafe.adriel.
 1. In `LibraryScreenModel.kt`, find the `State` class at line 1703 and list its fields.
 2. Find one function that changes state and trace its input.
 3. Compare with a plain `mutableStateOf` in a small Compose sample in `experiments/`.
+
+<!-- source: upstream/master@1656575e8f -->

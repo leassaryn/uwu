@@ -18,3 +18,5 @@ Komikku and Mihon use Injekt (`uy.kohesive.injekt`, a fork at `com.github.mihona
 
 1. Open `AppModule.kt` and list five registrations.
 2. Find one place that calls `Injekt.get` and trace where the type is registered.
+
+<!-- source: upstream/master@1656575e8f -->
