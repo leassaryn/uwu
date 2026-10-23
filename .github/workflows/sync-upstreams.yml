@@ -1,0 +1,103 @@
+name: Sync upstream branches
+
+on:
+  schedule:
+    # Every Sunday at 02:00 UTC (09:00 WIB)
+    - cron: "0 2 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream-branches
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: master
+
+      - name: Configure upstream remotes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git remote add upstream-komikku https://github.com/komikku-app/komikku.git
+          git remote add upstream-xkana https://github.com/xkana-shii/komikku.git
+          git remote add upstream-mihon https://github.com/mihonapp/mihon.git
+
+      - name: Fetch upstream branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin --prune
+          git fetch upstream-komikku master:refs/remotes/upstream-komikku/master
+          git fetch upstream-xkana main:refs/remotes/upstream-xkana/main
+          git fetch upstream-mihon main:refs/remotes/upstream-mihon/main
+
+      - name: Sync branches to fork (fast-forward only)
+        shell: bash
+        run: |
+          set -uo pipefail
+
+          failed=0
+
+          sync_branch() {
+            local source_ref="$1"
+            local target_branch="$2"
+            local target_ref="refs/heads/$target_branch"
+            local source_sha target_sha
+
+            echo "::group::${source_ref} -> origin/${target_branch}"
+            source_sha="$(git rev-parse "$source_ref")"
+            target_sha="$(git ls-remote origin "$target_ref" | awk 'NR==1 {print $1}')"
+
+            echo "Source: ${source_sha}"
+            echo "Target: ${target_sha:-<branch does not exist>}"
+
+            if [[ "$source_sha" == "$target_sha" ]]; then
+              echo "Already up to date."
+              echo "::endgroup::"
+              return 0
+            fi
+
+            if [[ -n "$target_sha" ]]; then
+              if ! git fetch origin "$target_ref"; then
+                echo "::error::Could not fetch origin/${target_branch}."
+                echo "::endgroup::"
+                return 1
+              fi
+
+              if ! git merge-base --is-ancestor "$target_sha" "$source_ref"; then
+                echo "::error::Cannot fast-forward origin/${target_branch} to ${source_ref}."
+                echo "Target has commits not contained in the source. No force-push performed."
+                echo "::endgroup::"
+                return 1
+              fi
+            fi
+
+            if git push origin "${source_ref}:${target_ref}"; then
+              echo "Updated origin/${target_branch}."
+              echo "::endgroup::"
+              return 0
+            else
+              echo "::error::Push failed for origin/${target_branch}."
+              echo "::endgroup::"
+              return 1
+            fi
+          }
+
+          # Each branch is attempted independently. master is never pushed.
+          sync_branch refs/remotes/upstream-komikku/master upstream/master || failed=1
+          sync_branch refs/remotes/upstream-xkana/main upstream-xkana || failed=1
+          sync_branch refs/remotes/upstream-mihon/main upstream-mihon || failed=1
+
+          if [[ "$failed" -ne 0 ]]; then
+            echo "::error::One or more branches could not be synchronized. See logs above."
+            exit 1
+          fi
