@@ -1,12 +1,10 @@
-
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-# Source remote branch -> destination branch on origin
 BRANCHES=(
     "upstream master upstream/master"
-    "upstream-xkana main upstream-xkana/main"
-    "upstream-mihon main upstream-mihon/main"
+    "upstream-xkana main upstream-xkana"
+    "upstream-mihon main upstream-mihon"
 )
 
 echo "==> Fetch all remotes"
@@ -18,13 +16,14 @@ for entry in "${BRANCHES[@]}"; do
     echo
     echo "==> Sync $remote/$source -> origin/$dest"
 
-    if ! git show-ref --verify --quiet "refs/remotes/$remote/$source"; then
-        echo "SKIP: Remote branch tidak ditemukan"
+    ref="refs/remotes/$remote/$source"
+
+    if ! git show-ref --verify --quiet "$ref"; then
+        echo "SKIP: $ref tidak ditemukan"
         continue
     fi
 
-    git push origin \
-        "refs/remotes/$remote/$source:refs/heads/$dest"
+    git push origin "$ref:refs/heads/$dest"
 
     echo "OK: origin/$dest updated"
 done
